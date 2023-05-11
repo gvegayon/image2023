@@ -1,0 +1,89 @@
+\usepackage{tabularx,booktabs}
+
+% \usepackage{hyperref}
+% \hypersetup{colorlinks=true,allcolors=blue}
+
+% https://tex.stackexchange.com/questions/53300/how-to-disable-links-completely-using-hyperref-package
+\usepackage[]{nohyperref}  % This makes hyperref commands do nothing without errors
+\usepackage{url} 
+
+\usepackage{graphicx}
+\graphicspath{{.}{fig/}{fig-whoami/}{fig-struct-test/}}
+\usepackage{wrapfig}
+\usepackage[justification=justified,hypcap=false]{caption}
+
+\usepackage{amsmath,amssymb}
+\allowdisplaybreaks
+
+\usepackage[autocite = superscript]{biblatex}
+\usepackage[margin=.5in]{geometry}
+
+% \usepackage{fontspec}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+%https://www.overleaf.com/project/606750b7be363f430ed22f6d
+\usepackage{wrapfig} %% figure wrapping
+\usepackage{enumitem} % item spacing fixes
+% \setmainfont{Arial}
+
+% \addbibresource{P01P2_renewal_bibliography.bib}
+% \addbibresource{bibliography-ergmito.bib}
+\addbibresource{bibliography-aphylo.bib}
+\addbibresource{bibliography-extra.bib}
+% \input{notation-def.tex}
+\input{notation.tex}
+
+% PRinting pubmed https://tex.stackexchange.com/questions/155532/biblatex-and-pubmed-pubmed-central-ids
+\usepackage{filecontents}
+\begin{filecontents*}{biblatex-dm.cfg}
+\DeclareDatamodelFields[type=field,datatype=verbatim]{pmid}
+\DeclareDatamodelEntryfields{pmid}
+\DeclareDatamodelFields[type=field,datatype=verbatim]{pmcid}
+\DeclareDatamodelEntryfields{pmcid}
+\end{filecontents*}
+
+\DeclareFieldFormat{eprint:pmcid}{%
+  PMCID\addcolon\space
+  \ifhyperref
+    {\href{http://www.ncbi.nlm.nih.gov/pmc/articles/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}}
+\DeclareFieldAlias{eprint:PMC}{eprint:pmcid}
+\DeclareFieldAlias{eprint:PMCID}{eprint:pmcid}
+\DeclareFieldAlias{eprint:pmc}{eprint:pmcid}
+\DeclareFieldAlias{pmcid}{eprint:pmcid}
+\DeclareFieldAlias{pmid}{eprint:pubmed}
+
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {\printfield{doi}}
+    {}%
+  \newunit\newblock
+  \printfield{pmcid}%
+  \newunit\newblock
+  \printfield{pmid}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}}
+    {}}
+
+% \newcommand{\toberemoved}[1]{ (#1)}
+\newcommand{\toberemoved}[1]{}
+
+% Line numbers
+\usepackage{lineno}
+%\linenumbers
+
+% Sets pre and post spacing
+\usepackage{titlesec}
+\titlespacing*{\section}
+{0pt}{.25cm}{.2cm}
+\titlespacing*{\subsection}
+{0pt}{.25cm}{.2cm}
+\titlespacing*{\subsubsection}
+{0pt}{.25cm}{.2cm}
+
+\renewcommand{\baselinestretch}{.95}
